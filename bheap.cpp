@@ -24,7 +24,7 @@ class bheap
             int j=k*2;
             if(j<n && v[j]<v[j+1])
                 j++;
-            if(k>=j)
+            if(a[k]>=a[j])
                 break;
             swap(v[k],v[j]);
             k=j;
