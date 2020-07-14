@@ -9,10 +9,6 @@ class bheap
     {
         v.push_back(0);
     }
-    int getsize()
-    {
-        return v.size();
-    }
     void insert()
     {
         int temp;
