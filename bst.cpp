@@ -6,6 +6,7 @@ Search: get method looks up value
 Size: Size of subtree
 Rank: Rank of element in tree
 Deletion: Hibbard Deletion
+Time complexity of all operations except traversal will be O(h) which is nearly 1.4logn
 */
 #include<bits/stdc++.h>
 using namespace std;
@@ -27,6 +28,7 @@ class BST
     node* getMin(node*);
     node* getMax(node*);
     int getSize(node*);
+    int rank(node*,int);
 public:
     BST() : root(NULL) {}
     int getMin()
@@ -44,6 +46,10 @@ public:
     int getSize()
     {
         return getSize(root);
+    }
+    int rank(int value)
+    {
+        return rank(root,value);
     }
     bool get(int value)
     {
@@ -122,6 +128,17 @@ int BST::getSize(node* x)
         return 0;
     return x->count;
 }
+int BST::rank(node* x,int value)
+{
+    if(!x)
+        return 0;
+    if(x->val==value)
+        return 1 + getSize(x->left);
+    else if( value < x->val )
+        return rank(x->left,value);
+    else if( value > x->val )
+        return 1+ getSize(x->left) + rank(x->right,value);
+}
 void BST::preorder(node* x)
 {
     if(!x)
@@ -146,6 +163,7 @@ void BST::postorder(node* x)
     postorder(x->right);
     cout<<x->val<<" ";
 }
+
 int main()
 {
     BST bst;
@@ -162,6 +180,8 @@ int main()
     cout<<"\n";
     cout<<"Min: "<<bst.getMin()<<"\nMax: "<<bst.getMax()<<"\n";
     cout<<"Size: "<<bst.getSize()<<"\n";
+    cout<<bst.rank(12)<<" "<<bst.rank(6)<<" "<<bst.rank(4);
     cout<<"No errors so far";
+
     return 0;
 }
